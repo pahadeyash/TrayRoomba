@@ -24,12 +24,19 @@ function intializeRoom(room, inputText) {
     room.placeRoomba(roombaPosition);
     room.setDirtPatches(dirtPatchPositions);
     room.getRoomba().setDrivingInstructions(drivingInstructions);
-    room.printRoom();
+}
+
+function printFinalResult(){
+    console.log("\nFinal Result")
+    console.log(room.getRoomba().getPosition()[0] + " " + room.getRoomba().getPosition()[1])
+    console.log(String(room.getRoomba().getCleaned()));
 }
 
 function main(inputText) {
     room = new Room();
     intializeRoom(room, inputText);
+    room.clean();
+    printFinalResult(room);
 }
 
 main('./input.txt');

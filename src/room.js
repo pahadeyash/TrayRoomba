@@ -19,7 +19,7 @@ class Room {
         return this.dirtPositions;
     }
 
-    setRoom(roomDimension){
+    setRoom(roomDimension) {
         var width = parseInt(roomDimension[0]);
         var height = parseInt(roomDimension[1]);
         for(var i = 0; i < width; i++) {
@@ -29,9 +29,10 @@ class Room {
             }
             this.room.push(row)
         }
+        this.roomba.setBoundaries([width, height]);
     }
     
-    placeRoomba(roombaPosition){
+    placeRoomba(roombaPosition) {
         var numRows = this.room.length;
         var x = numRows - 1 - parseInt(roombaPosition[1]);
         var y = parseInt(roombaPosition[0]);
@@ -48,7 +49,7 @@ class Room {
         }
     }
 
-    printRoom(){
+    printRoom() {
         var roomVar = this.room
         var width = parseInt(roomVar.length)
         var height = parseInt(roomVar[0].length)
@@ -62,6 +63,24 @@ class Room {
             xAxis += " " + i + " "
         }
         console.log(xAxis)
+    }
+
+    clean() {
+        console.log("\nInitial Set Up Of The Room...");
+        this.printRoom();
+        var drivingInstructions = this.roomba.getDrivingInstructions();
+        var cleaned = this.roomba.getCleaned();
+        for (var i = 0; i < drivingInstructions.length; i++){
+            this.room[this.roomba.getY()][this.roomba.getX()] = " ";
+            this.roomba.move(drivingInstructions[i]);
+            if (this.room[this.roomba.getY()][this.roomba.getX()] == "D"){
+                console.log("Roomba cleaned a patch of dirt!")
+                cleaned += 1
+            }
+            this.room[this.roomba.getY()][this.roomba.getX()] = "R";
+            this.printRoom();
+        }
+        this.roomba.setCleaned(cleaned);
     }
 
   }
