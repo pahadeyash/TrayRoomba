@@ -45,7 +45,7 @@ class Roomba {
     }
 
     move(direction) {
-        var directionStr = '';
+        let directionStr = '';
         
         switch(direction) {
             case 'N':
@@ -78,13 +78,13 @@ class Roomba {
         }
 
         if (directionStr === '') {
-            console.log("\nRoomba skidding in place and remained at " + this.getPosition());
+            console.log(`\nRoomba skidding in place and remained at ${this.getPosition()}`);
         } else {
-            console.log("\nMoving the Roomba in the " + directionStr + " direction to " + this.getPosition());
+            console.log(`\nMoving the Roomba in the ${directionStr} direction to ${this.getPosition()}`);
         }
 
     }
-
+    
 }
 
 module.exports = Roomba;

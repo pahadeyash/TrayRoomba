@@ -1,9 +1,5 @@
-const Room = require('./src/room')
-var fs = require('fs')
-
-function readFile(inputText) {
-    return fs.readFileSync(inputText, 'utf8').toString().split("\n");
-}
+const Room = require('./src/modules/room')
+const utils = require("./src/utils");
 
 function getDirtPatches(fileData) {
     const dirtPatches = []
@@ -14,7 +10,7 @@ function getDirtPatches(fileData) {
 }
 
 function intializeRoom(inputText) {
-    const fileData = readFile(inputText);
+    const fileData = utils.readFile(inputText);
     const roomDimensions = fileData[0].split(" ");
     const width = roomDimensions[0];
     const height = roomDimensions[1];
