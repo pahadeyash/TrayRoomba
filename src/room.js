@@ -1,68 +1,58 @@
 const Roomba = require('./roomba.js');
 
 class Room {
-    constructor() {
-      this.room = [];
-      this.roomba = new Roomba();
-      this.dirtPositions = [];
+    constructor(width, height, roombaPosition, dirtPatchPositions, drivingInstructions) {
+        this.width = width;
+        this.height = height;
+        this.room = this.setRoom();
+        this.roomba = this.placeRoomba(roombaPosition, drivingInstructions);
+        this.dirtPositions = this.setDirtPatches(dirtPatchPositions);
     }
 
-    getRoom(){
-        return this.room;
-    }
-
-    getRoomba() {
-        return this.roomba;
-    }
-
-    getDirtPositions() {
-        return this.dirtPositions;
-    }
-
-    setRoom(roomDimension) {
-        var width = parseInt(roomDimension[0]);
-        var height = parseInt(roomDimension[1]);
-        for(var i = 0; i < width; i++) {
-            var row = []
-            for(var j = 0; j < height; j++) {
-                row.push(" ")
+    setRoom() {
+        const room = [];
+        for(let i = 0; i < this.width; i++) {
+            const row = [];
+            for(let j = 0; j < this.height; j++) {
+                row.push(" ");
             }
-            this.room.push(row)
+            room.push(row);
         }
-        this.roomba.setBoundaries([width, height]);
+        return room
     }
     
-    placeRoomba(roombaPosition) {
-        var numRows = this.room.length;
-        var x = numRows - 1 - parseInt(roombaPosition[1]);
-        var y = parseInt(roombaPosition[0]);
+    placeRoomba(roombaPosition, drivingInstructions) {
+        const roomba = new Roomba();
+        const numRows = this.room.length;
+        const x = numRows - 1 - parseInt(roombaPosition[1]);
+        const y = parseInt(roombaPosition[0]);
         this.room[x][y] = "R";
-        this.roomba.setPosition(x,y);
+        roomba.setPosition(x,y);
+        roomba.setDrivingInstructions(drivingInstructions);
+        roomba.setBoundaries([this.width, this.height]);
+        return roomba;
     }
 
     setDirtPatches(dirtPositions) {
-        var num_rows = this.room.length;
-        for (var i = 0; i < dirtPositions.length; i++) {
-            var x = num_rows - 1 - parseInt(dirtPositions[i][1])
-            var y = parseInt(dirtPositions[i][0])
-            this.room[x][y] = "D"
+        let num_rows = this.room.length;
+        for (let i = 0; i < dirtPositions.length; i++) {
+            let x = num_rows - 1 - parseInt(dirtPositions[i][1]);
+            let y = parseInt(dirtPositions[i][0]);
+            this.room[x][y] = "D";
         }
     }
 
     printRoom() {
-        var roomVar = this.room
-        var width = parseInt(roomVar.length)
-        var height = parseInt(roomVar[0].length)
-        var xAxis = "  "
-        for (var i = 0; i < width; i++){
-            var row = (height - 1 - i) +  "|"
-            for (var j = 0; j< height; j++){
-                row += roomVar[i][j] + " |"
+        let xAxis = "  ";
+        for (let i = 0; i < this.width; i++) {
+            let row = (this.height - 1 - i) +  "|";
+            for (let j = 0; j < this.height; j++) {
+                row += this.room[i][j] + " |";
             }
-            console.log(row)
-            xAxis += " " + i + " "
+            console.log(row);
+            xAxis += " " + i + " ";
         }
-        console.log(xAxis)
+        console.log(xAxis);
     }
 
     clean() {
@@ -81,6 +71,13 @@ class Room {
             this.printRoom();
         }
         this.roomba.setCleaned(cleaned);
+        this.printCleanResult();
+    }
+
+    printCleanResult() {
+        console.log("\nFinal Result")
+        console.log(`${this.roomba.getPosition()[0]} ${this.roomba.getPosition()[1]}`);
+        console.log(`${this.roomba.getCleaned()}`);
     }
 
   }

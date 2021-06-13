@@ -6,37 +6,27 @@ function readFile(inputText) {
 }
 
 function getDirtPatches(fileData) {
-    dirtPatches = []
-    for(var i = 2; i < fileData.length - 1; i++) {
+    const dirtPatches = []
+    for(let i = 2; i < fileData.length - 1; i++) {
         dirtPatches.push(fileData[i].split(" "));
     }
     return dirtPatches;
 }
 
-function intializeRoom(room, inputText) {
-    var fileData = readFile(inputText);
-    var roomDimensions = fileData[0].split(" ");
-    var roombaPosition = fileData[1].split(" ");
-    var dirtPatchPositions = getDirtPatches(fileData);
-    var drivingInstructions =  fileData[fileData.length - 1].split('');
-    room.setRoom(roomDimensions);
-    room.setDirtPatches(dirtPatchPositions);
-    room.placeRoomba(roombaPosition);
-    room.setDirtPatches(dirtPatchPositions);
-    room.getRoomba().setDrivingInstructions(drivingInstructions);
-}
-
-function printFinalResult(){
-    console.log("\nFinal Result")
-    console.log(room.getRoomba().getPosition()[0] + " " + room.getRoomba().getPosition()[1])
-    console.log(String(room.getRoomba().getCleaned()));
+function intializeRoom(inputText) {
+    const fileData = readFile(inputText);
+    const roomDimensions = fileData[0].split(" ");
+    const width = roomDimensions[0];
+    const height = roomDimensions[1];
+    const roombaPosition = fileData[1].split(" ");
+    const dirtPatchPositions = getDirtPatches(fileData);
+    const drivingInstructions =  fileData[fileData.length - 1].split('');
+    return new Room(width, height, roombaPosition, dirtPatchPositions, drivingInstructions)
 }
 
 function main(inputText) {
-    room = new Room();
-    intializeRoom(room, inputText);
+    room = intializeRoom(inputText);
     room.clean();
-    printFinalResult(room);
 }
 
 main('./input.txt');
