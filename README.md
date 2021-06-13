@@ -20,7 +20,7 @@ node index.js
 
 To change the imput, simply edit the input.txt file or go to index.js and replace the paramter - 
 ```
-mainHoover('./input.txt', room)
+main('./input.txt');
 ```
 with another text file. 
 ## Output
