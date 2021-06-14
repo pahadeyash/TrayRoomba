@@ -8,8 +8,8 @@ const utils = require("./src/utils");
  */
 
 function getDirtPatches(fileData) {
-    console.log(typeof(fileData));
     const dirtPatches = []
+    // dirt patch coordinates start from the second line
     for(let i = 2; i < fileData.length - 1; i++) {
         dirtPatches.push(fileData[i].split(" "));
     }
@@ -17,7 +17,7 @@ function getDirtPatches(fileData) {
 }
 
 /**
- * Returns a Room instance intialized with the information from the input file
+ * Returns a room instance intialized with the information from the input file
  *
  * @param {string} inputFile The path of the input text file
  */
@@ -35,7 +35,7 @@ function intializeRoom(inputFile) {
 
 
 /**
- * Main function 
+ * Main function
  *
  * @param {string} inputFile The path of the input text file
  */

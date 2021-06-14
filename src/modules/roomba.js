@@ -6,8 +6,8 @@ class Roomba {
      * Create a roomba.
      * @param {integer} x X coordinate of the roomba
      * @param {integer} y Y coordinate of the roomba
-     * @param {arrray} drivingInstructions Array containing the driving instructions for the roomba
-     * @param {arrray} boundaries Array containing the boundaries that the roomba can operate within 
+     * @param {array} drivingInstructions Array containing the driving instructions for the roomba
+     * @param {array} boundaries Array containing the boundaries that the roomba can operate within 
      * @param {integer} cleaned Number of dirt patch spots the roomba has cleaned
      */
 
@@ -107,7 +107,6 @@ class Roomba {
 
     move(direction) {
         let directionStr = '';
-        
         switch(direction) {
             case 'N': 
                 if (this.y > 0) {

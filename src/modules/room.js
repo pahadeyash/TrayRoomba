@@ -1,5 +1,9 @@
 /** Class representing a room. */
 const Roomba = require('./roomba.js');
+//"R" used to represent the roomba in room
+const roombaStr = "R";
+//"D" used to represent the dirt patches in room
+const dirtPatchStr = "D";
 
 class Room {
 
@@ -20,7 +24,6 @@ class Room {
         this.roomba = this.placeRoomba(roombaXPosition, roombaYPosition, drivingInstructions);
         this.dirtPositions = this.setDirtPatches(dirtPatchPositions);
     }
-
 
     /**
      * Returns an array representing an empty room
@@ -53,7 +56,7 @@ class Room {
         const x = numRows - 1 - parseInt(roombaYPosition); 
         const y = parseInt(roombaXPosition);
 
-        this.room[x][y] = "R"; //"R" used to represent the roomba in room
+        this.room[x][y] = roombaStr;
         roomba.setPosition(x,y);
         roomba.setDrivingInstructions(drivingInstructions);
         roomba.setBoundaries([this.width, this.length]);
@@ -67,9 +70,9 @@ class Room {
     setDirtPatches(dirtPositions) {
         let num_rows = this.room.length;
         for (let i = 0; i < dirtPositions.length; i++) {
-            let x = num_rows - 1 - parseInt(dirtPositions[i][1]);
-            let y = parseInt(dirtPositions[i][0]);
-            this.room[x][y] = "D"; //"D" used to represent the dirt patches in room
+            const x = num_rows - 1 - parseInt(dirtPositions[i][1]);
+            const y = parseInt(dirtPositions[i][0]);
+            this.room[x][y] = dirtPatchStr;
         }
     }
 
@@ -100,14 +103,15 @@ class Room {
         const drivingInstructions = this.roomba.getDrivingInstructions();
         let cleaned = this.roomba.getCleaned();
         for (let i = 0; i < drivingInstructions.length; i++){
-            this.room[this.roomba.getY()][this.roomba.getX()] = " "; // clearing current position of roomba in room
-            this.roomba.move(drivingInstructions[i]); // move roomba in the direction of the driving instructions
+            // clearing current position of roomba in room
+            this.room[this.roomba.getY()][this.roomba.getX()] = " ";
+            this.roomba.move(drivingInstructions[i]);
             // condition to check if roomba is in the position of a dirt patch
-            if (this.room[this.roomba.getY()][this.roomba.getX()] == "D"){
+            if (this.room[this.roomba.getY()][this.roomba.getX()] == dirtPatchStr){
                 console.log("Roomba cleaned a patch of dirt!");
                 cleaned += 1;
             }
-            this.room[this.roomba.getY()][this.roomba.getX()] = "R";
+            this.room[this.roomba.getY()][this.roomba.getX()] = roombaStr;
             this.printRoom();
         }
         this.roomba.setCleaned(cleaned); 
