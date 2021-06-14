@@ -56,6 +56,7 @@ class Room {
         const x = numRows - 1 - parseInt(roombaYPosition); 
         const y = parseInt(roombaXPosition);
 
+        this.inBoundsCheck(x, y);
         this.room[x][y] = roombaStr;
         roomba.setPosition(x,y);
         roomba.setDrivingInstructions(drivingInstructions);
@@ -72,6 +73,7 @@ class Room {
         for (let i = 0; i < dirtPositions.length; i++) {
             const x = num_rows - 1 - parseInt(dirtPositions[i][1]);
             const y = parseInt(dirtPositions[i][0]);
+            this.inBoundsCheck(x, y);
             this.room[x][y] = dirtPatchStr;
         }
     }
@@ -101,7 +103,6 @@ class Room {
         console.log("\nInitial Set Up Of The Room...");
         this.printRoom();
         const drivingInstructions = this.roomba.getDrivingInstructions();
-        let cleaned = this.roomba.getCleaned();
         for (let i = 0; i < drivingInstructions.length; i++){
             // clearing current position of roomba in room
             this.room[this.roomba.getY()][this.roomba.getX()] = " ";
@@ -109,12 +110,11 @@ class Room {
             // condition to check if roomba is in the position of a dirt patch
             if (this.room[this.roomba.getY()][this.roomba.getX()] == dirtPatchStr){
                 console.log("Roomba cleaned a patch of dirt!");
-                cleaned += 1;
+                this.roomba.incrementCleaned();
             }
             this.room[this.roomba.getY()][this.roomba.getX()] = roombaStr;
             this.printRoom();
         }
-        this.roomba.setCleaned(cleaned); 
         this.printCleanResult();
     }
 
@@ -126,6 +126,23 @@ class Room {
         console.log("\nFinal Result")
         console.log(`${this.roomba.getPosition()[0]} ${this.roomba.getPosition()[1]}`);
         console.log(`${this.roomba.getCleaned()}`);
+    }
+
+
+    /**
+     * Check to see if out of bounds of room 
+     * @param {integer} x X coordinate
+     * @param {arrray} y Y coordinate  
+     */
+
+    inBoundsCheck(x, y){
+        try {
+            if (x >= this.width || x <= 0 || y >= this.height || y <= 0) {
+                throw "Something was placed out of bounds";
+            }
+        } catch (error) {
+            throw new Error(error);
+        }
     }
 
   }

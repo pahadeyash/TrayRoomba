@@ -12,8 +12,8 @@ class Roomba {
      */
 
     constructor() {
-        this.x;
-        this.y;
+        this.x = 0;
+        this.y = 0;
         this.drivingInstructions = [];
         this.boundaries = [];
         this.cleaned = 0;
@@ -96,8 +96,8 @@ class Roomba {
      * @param {integer} cleaned Number of dirt patches cleaned 
      */
 
-    setCleaned(cleaned) {
-        this.cleaned = cleaned;
+    incrementCleaned() {
+        this.cleaned += 1;
     }
 
     /** 

@@ -7,7 +7,12 @@ const fs = require('fs')
  */
 
 function readFile(inputFile) {
-    return fs.readFileSync(inputFile, 'utf8').toString().split("\n");
+    const retFile = fs.readFileSync(inputFile, 'utf8').toString().split("\n");
+    if (retFile.length === 0) {
+        throw new Error("Empty File");
+    } else {
+        return retFile;
+    }
 }
 
 module.exports = { readFile };
