@@ -76,6 +76,7 @@ class Room {
             this.inBoundsCheck(x, y);
             this.room[x][y] = dirtPatchStr;
         }
+        return dirtPositions;
     }
 
     /**

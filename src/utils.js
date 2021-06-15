@@ -15,4 +15,20 @@ function readFile(inputFile) {
     }
 }
 
-module.exports = { readFile };
+/**
+ * Returns an array containing the coordinates of all dirt patches
+ *
+ * @param {array} fileData Array containing information parsed from input file
+ */
+
+function getDirtPatches(fileData) {
+    const dirtPatches = []
+    // dirt patch coordinates start from the second line
+    for(let i = 2; i < fileData.length - 1; i++) {
+        dirtPatches.push(fileData[i].split(" "));
+    }
+    console.log(dirtPatches);
+    return dirtPatches;
+}
+
+module.exports = { readFile, getDirtPatches };
