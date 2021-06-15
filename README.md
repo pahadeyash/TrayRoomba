@@ -25,7 +25,7 @@ from your machine's shell -
 node index.js
 ```
 
-To change the imput, simply edit the input.txt file or go to index.js and replace the parameter - 
+To change the input, simply edit the input.txt file or go to index.js and replace the parameter - 
 ```
 main('./input.txt');
 ```
