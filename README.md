@@ -29,7 +29,18 @@ To change the input, simply edit the input.txt file or go to index.js and replac
 ```
 main('./input.txt');
 ```
-with another text file. 
+
+## To run tests  
+Go to the shell under the main directory 
+```
+npm install
+```
+
+Then run 
+```
+npm test
+```
+
 ## Output
 
 The program will output the final position of the hoover and the 
